@@ -1,0 +1,38 @@
+<% if type == :new %>
+    <% url = users_url %>
+    <% button_text = "Create User" %>
+<% else %>
+    <%url = user_url(user)  %>
+    <% button_text = 'Update User' %>
+<% end %>
+
+<form action= '<%=url%>' method= 'POST'> 
+<%# <%= auth_token %> %>
+<% if type == :edit %>
+<input type="hidden" name= "_method" value= "PATCH">
+<% end %>
+
+
+<label>
+Username
+<input id="username" type="text" name= "user[username]" value= "<%=user.username %>%"> 
+</label>
+
+<label>
+Age
+<input id="age" type="text" name= "user[age]" value= "<%=user.age %>%"> 
+</label>
+
+<label>
+Email
+<input id="email" type="text" name= "user[email]" value= "<%=user.email %>%"> 
+</label>
+
+<% if type != :edit %>
+<label>
+Password
+<input id="password" type="text" name= "user[password]" value= "<%=user.password %>%"> 
+</label>
+<% end %>
+<button type= "submit"><%= button_text %></button>
+</form>

@@ -1,0 +1,11 @@
+<h1>List of all Users</h1>
+<a href="<%= new_user_url %>">Sign Up</a>
+<ul>
+  <% @users.each do |user| %>
+    <% if current_user && current_user.id == user.id %>
+      <a href="<%= edit_user_url(user) %>">Edit</a>
+    <% end %>
+    <%# render <partial_name>, <partial_variable>: <value> %>
+    <%= render 'user', user: user, action: :index %>
+  <% end %>
+</ul>

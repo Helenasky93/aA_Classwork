@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bluebird</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%# templates we write go here %>
+    <% if flash[:errors] %>
+      <ul>
+        <% flash[:errors].each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <% if logged_in? %>
+      <marquee scrollamount="30">Hi, <%= current_user.username %></marquee>
+      <form action="<%= session_url %>" method="POST">
+        <input type="hidden" name="_method" value="DELETE"> 
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" />
+        <button type="submit">Logout!</button>
+      </form>
+
+      <form action="<%= chirps_url %>" method="post">
+        <%= auth_token %>
+        <input type="submit">
+      </form>
+    <% end %>
+    <%= yield %> 
+  </body>
+</html>

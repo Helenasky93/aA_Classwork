@@ -1,0 +1,38 @@
+<% if type == :new %>
+  <% banana = users_url %>
+  <% button_txt = "Create User" %>
+<% else %>
+  <% banana = user_url(user) %>
+  <% button_txt = "Update User" %>
+<% end%>
+
+<form action="<%= banana %>" method="POST">
+  <%= auth_token %>
+  <% if type == :edit %>
+    <input type="hidden" name="_method" value="PATCH">
+  <% end %>
+
+  <label>
+    Username
+    <input id="username" type="text" name="user[username]" value="<%= user.username %>">
+  </label>
+
+  <% if type != :edit %>
+    <label>
+      Password
+      <input id="password" type="password" name="user[password]" value="">
+    </label>
+  <% end %>
+
+  <label>
+    Age
+    <input id="age" type="text" name="user[age]" value="<%= user.age %>">
+  </label>
+
+  <label>
+    Email
+    <input id="email" type="text" name="user[email]" value="<%= user.email %>">
+  </label>
+
+  <button type="submit"><%= button_txt %></button>
+</form>
